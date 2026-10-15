@@ -27,7 +27,7 @@ flowchart LR
 ```
 
 - `app/`: file-based routes, `public/` (sign-in) and `protected/` (chat, permissions).
-- `src/services/`: realtime and voice clients; `src/http/generated/`: Orval output (not committed; run `npx orval` against a running backend, URL set in `orval.config.ts`).(not committed; run `npx orval` against a running backend, URL set in `orval.config.ts`).
+- `src/services/`: realtime and voice clients; `src/http/generated/`: Orval output (not committed).
 - `src/env/index.ts`: Zod-validated environment.
 
 ## Key decisions
