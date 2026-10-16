@@ -21,7 +21,7 @@ export default function useAbly({
       autoConnect: true,
       authCallback: async (_, callback) => {
         const tokenRequest = await createAblyToken({
-          channel: `connect-${user.data.companyGroupId}`,
+          channel: `ambulance-fleet-${user.data.companyGroupId}`,
         });
         callback(null, tokenRequest.tokenRequest as string);
       },
@@ -40,7 +40,7 @@ export default function useAbly({
       return;
 
     const client = clientRef.current;
-    const channelName = `connect-${user.data.companyGroupId}`;
+    const channelName = `ambulance-fleet-${user.data.companyGroupId}`;
     const channel = client.channels.get(channelName);
 
     const subscribe = () => {
@@ -65,7 +65,7 @@ export default function useAbly({
         throw new Error("Ably not ready");
       }
 
-      const channelName = `connect-${user.data.companyGroupId}`;
+      const channelName = `ambulance-fleet-${user.data.companyGroupId}`;
       const channel = clientRef.current.channels.get(channelName);
 
       // Ensure connection

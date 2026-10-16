@@ -129,7 +129,7 @@ export default function Chat() {
         <View className="p-6">
           <View className="gap-2">
             <Typography variant="title" weight="semibold">
-              Connect Comms
+              Ambulance Fleet Comms
             </Typography>
             <Typography variant="subtitle">
               Sistema de comunicação em tempo real

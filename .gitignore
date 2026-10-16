@@ -42,7 +42,7 @@ app-example
 /ios
 /android
 app-release.apk
-connect-comms.apk
+ambulance-fleet-comms.apk
 
 src/http/
 .env

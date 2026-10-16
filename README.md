@@ -10,7 +10,7 @@ Expo mobile app for the dispatch-communications role of an ambulance-fleet platf
 - Realtime events over Ably using backend-issued token requests (`src/services/use-ably.ts`).
 - Push-to-talk radio over Agora: joins an intercom channel when an Ably `interCommunicationCall` event arrives, and can open a call from the chat screen (`src/services/use-agora.ts`, `src/hooks/use-radio-call-handler.ts`, `app/protected/app/chat.tsx`).
 - Answers presence checks (`checkingActiveness`) and plays an alert sound on request (`src/hooks/use-notification-aero-hook.ts`).
-- Background connection service and a permissions screen (`src/hooks/use-background-service.ts`, `src/pages/permissions`).
+- Permissions screen (`src/pages/permissions`).
 - API client generated from the backend OpenAPI contract with Orval.
 
 ## Architecture
@@ -47,7 +47,6 @@ flowchart TB
   AblyHook -->|createAblyToken| API
   AblyHook --> Ably{{Ably}}
   AgoraHook --> Agora{{Agora}}
-  Screens --> BG[use-background-service]
 ```
 
 Intercom call flow:
@@ -76,9 +75,9 @@ Boundaries:
 
 ## Key engineering decisions and trade-offs
 
-- Ably connections authenticate with backend-issued token requests, one channel per company group (`connect-<companyGroupId>`), rather than a client key (`src/services/use-ably.ts`). Trade-off: the env schema still lists `EXPO_PUBLIC_ABLY_API_KEY` (`src/env/index.ts`) though nothing reads it; leave it empty and do not put a real key there.
+- Ably connections authenticate with backend-issued token requests, one channel per company group (`ambulance-fleet-<companyGroupId>`), rather than a client key (`src/services/use-ably.ts`).
 - Event-driven radio: an Ably event triggers a token request and Agora join, and the same hook handles leave (`src/hooks/use-radio-call-handler.ts`).
-- Native modules (Agora, background plugin) require a development build; Expo Go is not enough.
+- Native modules (Agora) require a development build; Expo Go is not enough.
 
 ## Tech stack
 
@@ -100,10 +99,9 @@ npm run android         # or: npm run ios
 | --- | --- |
 | `EXPO_PUBLIC_BACKEND` | Backend API base URL |
 | `EXPO_PUBLIC_APP_VERSION` | Version string used by `app.config.js` |
-| `EXPO_PUBLIC_ABLY_API_KEY` | Required by the env schema but unused; keep it empty |
 | `EXPO_PUBLIC_AGORA_APP_ID` | Agora project identifier |
 
-`EXPO_PUBLIC_` values ship inside the app bundle, so never put a secret in them. `orval.config.ts` points at an old sibling folder name (`../connect-server-refactor/swagger.json`); change it to your API checkout's `swagger.json`. `package.json` points `expo-background-connection-plugin` at a local path outside this repository, so installs fail until it is replaced.
+`EXPO_PUBLIC_` values ship inside the app bundle, so never put a secret in them. `orval.config.ts` reads `../ambulance-fleet-api/swagger.json`, so check out the API repository next to this one. The Android background-connection plugin that the original app used was a private local package and is not part of this snapshot, so the app does not run a background keep-alive service.
 
 ## Testing
 

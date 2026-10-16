@@ -2,23 +2,23 @@
 export default ({ config }) => ({
   ...config,
   expo: {
-    name: "Connect Comms",
-    slug: "connect-commns",
+    name: "Ambulance Fleet Comms",
+    slug: "ambulance-fleet-comms",
     version: process.env.EXPO_PUBLIC_APP_VERSION || "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
-    scheme: "connectcomms",
+    scheme: "ambulancefleetcomms",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
-    package: "com.connectapp.comms",
+    package: "com.ambulancefleet.comms",
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.connectapp.comms",
+      bundleIdentifier: "com.ambulancefleet.comms",
     },
     android: {
       edgeToEdgeEnabled: true,
       predictiveBackGestureEnabled: false,
-      package: "com.connectapp.comms",
+      package: "com.ambulancefleet.comms",
     },
     web: {
       output: "static",
@@ -26,13 +26,6 @@ export default ({ config }) => ({
     },
     plugins: [
       "expo-router",
-      [
-        "expo-background-connection-plugin",
-        {
-          "notificationTitle": "Call Active",
-          "notificationBody": "Your connection is active"
-        }
-      ],
       [
         "expo-notifications",
         {
@@ -65,7 +58,6 @@ export default ({ config }) => ({
       // Environment variables exposed through expo-constants
       EXPO_PUBLIC_BACKEND: process.env.EXPO_PUBLIC_BACKEND,
       EXPO_PUBLIC_APP_VERSION: process.env.EXPO_PUBLIC_APP_VERSION,
-      EXPO_PUBLIC_ABLY_API_KEY: process.env.EXPO_PUBLIC_ABLY_API_KEY,
       EXPO_PUBLIC_AGORA_APP_ID: process.env.EXPO_PUBLIC_AGORA_APP_ID,
     },
   },
